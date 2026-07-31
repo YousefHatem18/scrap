@@ -3,7 +3,7 @@ name: VOX Availability Scraper
 on:
   schedule:
     # بيشتغل كل 30 دقيقة. عدّل الرقم لو عايز فترة مختلفة (بالدقايق).
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch: # يديك زرار تشغيل يدوي من تبويب Actions لو حبيت تجربه فورًا
 
 jobs:
