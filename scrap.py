@@ -10,8 +10,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 import json
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 URL = "https://egy.voxcinemas.com/showtimes?c=city-centre-alexandria&m=spider-man-brand-new-day&d=20260802"
 
