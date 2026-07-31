@@ -1,0 +1,43 @@
+name: VOX Availability Scraper
+
+on:
+  schedule:
+    # بيشتغل كل 30 دقيقة. عدّل الرقم لو عايز فترة مختلفة (بالدقايق).
+    - cron: "*/30 * * * *"
+  workflow_dispatch: # يديك زرار تشغيل يدوي من تبويب Actions لو حبيت تجربه فورًا
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install dependencies
+        run: pip install selenium
+
+      - name: Run scraper
+        env:
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+        run: python scrap.py
+
+      # بما إن GitHub Actions بيدي جهاز جديد كل مرة، لازم نحفظ ملف
+      # known_dates.json جوه الريبو نفسه عشان المقارنة تفضل شغالة صح
+      # بين كل تشغيل والتاني
+      - name: Commit updated known_dates.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add known_dates.json
+          git diff --staged --quiet || git commit -m "update known dates"
+          git push
