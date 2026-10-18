@@ -19,7 +19,7 @@ try:
 except ImportError:
     pass
 
-URL = "https://egy.voxcinemas.com/movies/resident-evil"
+URL = "https://egy.voxcinemas.com/showtimes?c=mall-of-egypt&m=resident-evil"
 
 # ملف بنحفظ فيه آخر قايمة أيام شفناها، عشان نقدر نقارن بيها في المرة الجاية
 KNOWN_DATES_FILE = "known_dates.json"
